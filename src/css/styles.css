@@ -115,6 +115,34 @@ h1 {
     margin-bottom: 10px;
     width: 500px;
 }
+#table-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#search {
+    font-size: 1.5em;
+    margin-top: 50px;
+    border: 2px solid #333;
+}
+#table {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+#table tr th {
+    border: 2px solid #333;
+    padding: 15px;
+    width: 300px;
+}
+#table tr td {
+    border: 0.5px solid #333;
+    padding: 15px;
+    text-align: center;
+}
+#table-head {
+    text-decoration: underline;
+}
 
 @media screen and (max-width: 1000px) {
     .menu {
