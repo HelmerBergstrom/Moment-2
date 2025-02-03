@@ -9,17 +9,44 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 })
 
-async function getData() {
-    try {
-        const response = await fetch(
-            "https://webbutveckling.miun.se/files/ramschema_ht24.json"
-        );
-        const data = await response.json();
-        console.log(data);
-    } catch (error) {
-        console.error("Error: ", error);
-    }
-    console.log("Fortsätt.")
+let courseInfoEl = [];
+
+window.onload = () => {
+    getData();
 }
 
-getData();
+async function getData() {
+    try {
+        const response = await fetch("https://webbutveckling.miun.se/files/ramschema_ht24.json" );
+        if (!response.ok) {
+            throw new Error("Fel vid anslutning. Försök igen senare");
+        }
+
+        courseInfoEl = await response.json();
+        printData(courseInfoEl); 
+
+    } catch (error) {
+        console.error(error);
+        document.querySelector(`#error`).innerHTML = "<p> Fel. Prova igen senare! </p>"
+    }
+}
+
+function printData(data) {
+    const coursesEl = document.querySelector("#courses"); 
+
+    // Rensar DOM
+    coursesEl.innerHTML = "";
+
+    data.forEach(course => {
+        let row = document.createElement("tr"); // skapar rad till HTML
+        
+        // skriver ut kod, kursnamn och progression.
+        row.innerHTML = `
+            <td>${course.code}</td>
+            <td>${course.coursename}</td>
+            <td>${course.progression}</td>
+        `;
+
+        coursesEl.appendChild(row); 
+    });
+}
