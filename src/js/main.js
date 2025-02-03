@@ -47,7 +47,7 @@ function printData(data) {
             <td>${course.code}</td>
             <td>${course.coursename}</td>
             <td>${course.progression}</td>
-            <td><a href=${course.syllabus}> Kursplan </a></td>
+            <td id="plans"><a href="${course.syllabus}"> Kursplan</td>
         `;
 
         coursesEl.appendChild(row); // lägger till raderna till id "courses".
