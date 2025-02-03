@@ -13,6 +13,8 @@ let courseInfoEl = [];
 
 window.onload = () => {
     getData();
+
+    document.querySelector(`#search`).addEventListener("input", filterData);
 }
 
 async function getData() {
@@ -47,6 +49,21 @@ function printData(data) {
             <td>${course.progression}</td>
         `;
 
-        coursesEl.appendChild(row); 
+        coursesEl.appendChild(row); // lägger till raderna till id "courses".
     });
+};
+
+// funktion för att filtrera data utifrån vad användaren skriver i input.
+function filterData() { 
+    const search = document.querySelector(`#search`).value; // lagrar värdet i input "search" genom value.
+
+    // tar "courseInfoEl" som är arrayen längst upp i koden.
+    // användare ska bara kunna söka på kurskod och kursnamn, med små eller stora bokstäver.
+    const filtered = courseInfoEl.filter(datan =>
+        datan.code.toLowerCase().includes(search.toLowerCase()) ||
+        datan.coursename.toLowerCase().includes(search.toLowerCase())
+    );
+    
+    // kallar på funktionen som skriver ut datan, med filtret som kallas "filtered."
+    printData(filtered);
 }
