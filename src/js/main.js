@@ -10,11 +10,16 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 
 let courseInfoEl = [];
+let ascending = true; // variabel för att styra fallande och stigande sortering av kolumner.
 
 window.onload = () => {
     getData();
 
     document.querySelector(`#search`).addEventListener("input", filterData);
+    document.querySelectorAll(`.sort`).forEach(th => {
+        th.addEventListener("click", () => sortTable(th.dataset.column)); 
+        // skickar med värde från data-column till funktionen sortTable.
+    })
 }
 
 async function getData() {
@@ -67,4 +72,17 @@ function filterData() {
     
     // kallar på funktionen som skriver ut datan, med filtret som kallas "filtered."
     printData(filtered);
+}
+
+function sortTable(column) {
+    ascending = !ascending; // växlar mellan fallande o stigande.
+
+    courseInfoEl.sort((a, b) => {
+        let valueA = a[column].toLowerCase();
+        let valueB = b[column].toLowerCase();
+
+        return ascending ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+    }); // localeCompare för att jämföra i alfabetisk ordning och inte numeriskt.
+
+    printData(courseInfoEl); // Skickar nya tabellen för utskrift
 }
