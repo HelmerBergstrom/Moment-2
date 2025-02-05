@@ -147,6 +147,12 @@ h1 {
     text-align: center;
 }
 
+/* Hovereffekt på alla th-element förutom sista som är kursplan.*/
+#table th:hover:not(:last-child) { 
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
 @media screen and (max-width: 1000px) {
     #table {
         width: 600px;
